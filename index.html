@@ -100,25 +100,34 @@
             <nav class="space-y-1.5">
                 <a href="#" data-view="dashboard" class="nav-item flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">
                     <i class="fa-solid fa-chart-pie w-5"></i>
-                    <span>Dashboard Siswa</span>
+                    <span>Dashboard</span>
                 </a>
                 <a href="#" data-view="courses" class="nav-item flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">
                     <i class="fa-solid fa-book-quran w-5"></i>
                     <span>Materi & ATP BSKAP</span>
                 </a>
+                <a href="#" data-view="assignments" class="nav-item flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">
+                    <i class="fa-solid fa-pen-to-square w-5"></i>
+                    <span>Tugas & Jurnal Saya</span>
+                </a>
                 <a href="#" data-view="my-learning" class="nav-item flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">
                     <i class="fa-solid fa-heart-pulse w-5"></i>
-                    <span>Jurnal Akhlak Saya</span>
-                </a>
-                <a href="#" data-view="analytics" class="nav-item flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">
-                    <i class="fa-solid fa-chart-line w-5"></i>
-                    <span>Capaian Elemen</span>
+                    <span>Progres Belajar</span>
                 </a>
             </nav>
         </div>
 
         <!-- Sidebar Footer & Theme Toggle -->
         <div class="p-4 border-t border-slate-200 dark:border-slate-700 space-y-3">
+            <!-- Login Switcher Button -->
+            <button onclick="openLoginModal()" class="w-full flex items-center justify-between px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold transition-colors shadow-md shadow-emerald-500/20">
+                <span class="flex items-center gap-2">
+                    <i class="fa-solid fa-user-lock"></i>
+                    <span>Login (Guru PAI / Siswa)</span>
+                </span>
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+
             <button id="themeToggleDesktop" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors text-sm font-medium">
                 <span class="flex items-center gap-2">
                     <i class="fa-solid fa-moon dark:hidden"></i>
@@ -129,17 +138,6 @@
                     <div class="w-3 h-3 bg-white rounded-full absolute top-0.5 left-0.5 dark:left-4 transition-all"></div>
                 </div>
             </button>
-
-            <!-- Role Selector Card -->
-            <div class="p-3 bg-slate-100 dark:bg-slate-700/50 rounded-xl space-y-2">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Mode Peran</span>
-                    <span id="currentRoleBadge" class="text-[10px] px-2 py-0.5 bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 font-bold rounded-full uppercase">Siswa</span>
-                </div>
-                <button id="roleToggleBtn" onclick="toggleUserRole()" class="w-full py-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-lg transition-colors flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-repeat"></i> Mode Guru PAI
-                </button>
-            </div>
 
             <!-- User Profile Card -->
             <div class="flex items-center gap-3 p-2 bg-slate-50 dark:bg-slate-700/40 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
@@ -296,73 +294,113 @@
                     <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Manajemen ATP & Modul Ajar Guru PAI</h2>
                     <p class="text-slate-500 dark:text-slate-400 text-sm">Kelola Alur Tujuan Pembelajaran (ATP) PAI & Budi Pekerti Sesuai Keputusan BSKAP No. 032/H/KR/2024</p>
                 </div>
-                <button onclick="openAddCourseModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-sm transition-colors flex items-center gap-2 shadow-lg shadow-emerald-500/20">
-                    <i class="fa-solid fa-plus"></i> Buat Modul & ATP Baru
-                </button>
-            </div>
-
-            <!-- Admin Stats Bar -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                    <div class="p-3.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl">
-                        <i class="fa-solid fa-file-invoice text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Total Kode ATP</p>
-                        <h3 class="text-xl font-bold mt-0.5 text-slate-800 dark:text-slate-100" id="adminStatTotalCourses">0</h3>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                    <div class="p-3.5 bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 rounded-xl">
-                        <i class="fa-solid fa-user-graduate text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Siswa Terdaftar</p>
-                        <h3 class="text-xl font-bold mt-0.5 text-slate-800 dark:text-slate-100">320 Siswa</h3>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                    <div class="p-3.5 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-xl">
-                        <i class="fa-solid fa-heart-circle-check text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Target Profil P3</p>
-                        <h3 class="text-xl font-bold mt-0.5 text-slate-800 dark:text-slate-100">6 Dimensi</h3>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                    <div class="p-3.5 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl">
-                        <i class="fa-solid fa-hands-clapping text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Standar BSKAP</p>
-                        <h3 class="text-xl font-bold mt-0.5 text-slate-800 dark:text-slate-100">032/H/KR/2024</h3>
-                    </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="openAddStudentModal()" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-sm transition-colors flex items-center gap-2 shadow-lg shadow-blue-500/20">
+                        <i class="fa-solid fa-user-plus"></i> Tambah Siswa Baru
+        <!-- ASSIGNMENTS VIEW (STUDENT & GURU) -->
+        <section id="view-assignments" class="app-view space-y-6 hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Daftar Tugas & Jurnal Budi Pekerti</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">Kirim lembar kerja, dokumentasi foto, dan jurnal refleksi harian PAI</p>
                 </div>
             </div>
 
-            <!-- Admin Course Management Table / Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Task List -->
+                <div class="lg:col-span-2 space-y-4" id="assignmentListContainer">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+
+                <!-- Submit Assignment Side Card -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4 h-fit">
+                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base" id="submitCardTitle">Form Pengumpulan Tugas</h3>
+                    <p class="text-xs text-slate-500" id="submitCardSub">Pilih salah satu tugas di samping untuk mengunggah jawaban & bukti foto.</p>
+                    
+                    <form id="studentSubmitForm" onsubmit="handleStudentSubmitTask(event)" class="space-y-4 hidden">
+                        <input type="hidden" id="submitTaskId">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Catatan / Jawaban Refleksi</label>
+                            <textarea id="submitTextContent" rows="4" required placeholder="Tuliskan refleksi atau deskripsi kegiatan kamu..." class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Lampiran Gambar/Foto Bukti (URL)</label>
+                            <input type="url" id="submitImageURL" placeholder="https://images.unsplash.com/... atau tautan gambar" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <span class="text-[10px] text-slate-400">Dapat berisi foto kegiatan pembiasaan, infografis, atau rangkuman.</span>
+                        </div>
+                        <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl shadow-md shadow-emerald-500/20 transition-colors">
+                            <i class="fa-solid fa-paper-plane mr-1"></i> Kirim Tugas Ini
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADMIN DASHBOARD VIEW (GURU PAI) -->
+        <section id="view-admin-dashboard" class="app-view space-y-6 hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Manajemen ATP & Penilaian Guru PAI</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">Kelola Tugas, Buku Nilai Siswa, dan ATP PAI & Budi Pekerti BSKAP</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="openAddAssignmentModal()" class="px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-xl text-sm transition-colors flex items-center gap-2 shadow-lg shadow-amber-500/20">
+                        <i class="fa-solid fa-file-pen"></i> Buat Tugas Baru
+                    </button>
+                    <button onclick="openAddStudentModal()" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-sm transition-colors flex items-center gap-2 shadow-lg shadow-blue-500/20">
+                        <i class="fa-solid fa-user-plus"></i> Tambah Siswa Baru
+                    </button>
+                    <button onclick="openAddCourseModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-sm transition-colors flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+                        <i class="fa-solid fa-plus"></i> Buat Modul ATP
+                    </button>
+                </div>
+            </div>
+
+            <!-- Submissions to Grade (Buku Nilai Guru) -->
             <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
                 <div class="flex items-center justify-between">
-                    <h3 class="font-bold text-slate-800 dark:text-slate-100">Kelola ATP & Modul PAI BSKAP</h3>
-                    <span class="text-xs text-slate-400">Pemetaan CP, TP, & Rubrik Asesmen</span>
+                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base"><i class="fa-solid fa-clipboard-check text-emerald-600 mr-2"></i>Buku Nilai & Pengumpulan Tugas Siswa</h3>
+                    <span class="text-xs text-slate-400">Periksa foto bukti & berikan nilai</span>
                 </div>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm">
                         <thead class="bg-slate-50 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 text-xs uppercase">
                             <tr>
-                                <th class="p-3.5 rounded-l-xl">Kode ATP & Judul Topik</th>
-                                <th class="p-3.5">Fase BSKAP</th>
-                                <th class="p-3.5">Elemen Utama</th>
-                                <th class="p-3.5">Jumlah Sub-TP</th>
-                                <th class="p-3.5 text-right rounded-r-xl">Aksi Guru</th>
+                                <th class="p-3.5 rounded-l-xl">Nama Siswa</th>
+                                <th class="p-3.5">Judul Tugas</th>
+                                <th class="p-3.5">Bukti Gambar</th>
+                                <th class="p-3.5">Jawaban / Catatan</th>
+                                <th class="p-3.5">Nilai Status</th>
+                                <th class="p-3.5 text-right rounded-r-xl">Aksi Penilaian</th>
                             </tr>
                         </thead>
-                        <tbody id="adminCourseTableBody" class="divide-y divide-slate-200 dark:divide-slate-700">
+                        <tbody id="adminGradingTableBody" class="divide-y divide-slate-200 dark:divide-slate-700">
+                            <!-- JS Populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Student Management Table -->
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-slate-800 dark:text-slate-100">Daftar Siswa & Progres Belajar</h3>
+                    <button onclick="openAddStudentModal()" class="text-xs font-semibold text-blue-600 hover:underline">+ Tambah Siswa</button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 text-xs uppercase">
+                            <tr>
+                                <th class="p-3.5 rounded-l-xl">Nama Siswa / NISN</th>
+                                <th class="p-3.5">Kelas & Fase</th>
+                                <th class="p-3.5">Modul Diikuti</th>
+                                <th class="p-3.5">Capaian Jurnal</th>
+                                <th class="p-3.5 text-right rounded-r-xl">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminStudentTableBody" class="divide-y divide-slate-200 dark:divide-slate-700">
                             <!-- JS Populated -->
                         </tbody>
                     </table>
@@ -370,141 +408,55 @@
             </div>
         </section>
 
-        <!-- COURSE DETAIL & LESSON VIEW -->
-        <section id="view-course-detail" class="app-view space-y-6 hidden">
-            <!-- Back Button -->
-            <button onclick="switchView('courses')" class="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-600 font-medium text-sm transition-colors">
-                <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Modul
-            </button>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Main Lesson / Player Section -->
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- Lesson Player Visual Container -->
-                    <div class="bg-slate-900 rounded-2xl overflow-hidden aspect-video relative flex items-center justify-center shadow-lg border border-slate-800">
-                        <div id="lessonPlayerContainer" class="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950">
-                            <i class="fa-solid fa-book-open text-6xl text-emerald-400 mb-4 animate-pulse"></i>
-                            <h3 id="currentLessonTitle" class="text-xl font-bold mb-2">Merawat Karakter & Budi Pekerti</h3>
-                            <p class="text-sm text-slate-300 max-w-md">Silakan pilih topik di sebelah kanan untuk membaca paparan naratif, dalil Al-Qur'an, dan refleksi hikmah.</p>
-                        </div>
-                    </div>
-
-                    <!-- Lesson Content Details -->
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
-                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
-                            <div>
-                                <h3 id="detailLessonHeader" class="text-xl font-bold text-slate-800 dark:text-slate-100">Indahnya Menjaga Etika Bermedia Sosial</h3>
-                                <p id="detailCourseSub" class="text-sm text-emerald-600 dark:text-emerald-400 font-medium">Fase E • Elemen Akhlak & Al-Qur'an Hadis</p>
-                            </div>
-                            <button id="btnMarkComplete" onclick="markCurrentLessonComplete()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold transition-colors flex items-center gap-2 shadow-md shadow-emerald-500/20">
-                                <i class="fa-solid fa-circle-check"></i> Selesaikan Topik Ini
-                            </button>
-                        </div>
-
-                        <!-- Lesson Description Text -->
-                        <div id="lessonTextContent" class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 text-sm space-y-3 leading-relaxed">
-                            <p>Di era digital, penerapan nilai-nilai PAI & Budi Pekerti diwujudkan melalui saring sebelum sharing, menghindari ujaran kebencian, dan menyebarkan pesan perdamaian.</p>
-                        </div>
-                    </div>
-
-                    <!-- QUIZ / REFLECTION ENGINE CONTAINER -->
-                    <div id="quizContainer" class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-6 hidden">
-                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
-                            <div>
-                                <span class="text-xs font-bold uppercase text-emerald-600 tracking-wider">Refleksi & Asesmen Sikap</span>
-                                <h3 id="quizTitle" class="text-xl font-bold text-slate-800 dark:text-slate-100">Uji Pemahaman & Pembiasaan Akhlak</h3>
-                            </div>
-                            <span id="quizBadge" class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold rounded-full">Soal 1 dari 2</span>
-                        </div>
-
-                        <!-- Active Quiz Questions Form -->
-                        <div id="quizBody" class="space-y-6">
-                            <!-- Question rendered via JS -->
-                        </div>
-
-                        <!-- Quiz Result Display -->
-                        <div id="quizResult" class="hidden text-center py-6 space-y-4">
-                            <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto text-2xl">
-                                <i class="fa-solid fa-award"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-slate-800 dark:text-slate-100">Refleksi Selesai!</h4>
-                            <p id="quizScoreText" class="text-slate-600 dark:text-slate-300">Skor Pemahaman: <span class="font-bold text-emerald-600">100%</span></p>
-                            <button onclick="resetQuiz()" class="px-5 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-800 dark:text-slate-100 font-semibold rounded-xl text-sm transition-colors">Ulangi Refleksi</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Course Modules / Curriculum Sidebar -->
-                <div class="space-y-6">
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
-                        <div>
-                            <h3 class="font-bold text-slate-800 dark:text-slate-100" id="sidebarCourseTitle">PAI & BP Kurikulum Merdeka</h3>
-                            <div class="mt-2 flex items-center justify-between text-xs text-slate-500 mb-1">
-                                <span>Capaian Modul</span>
-                                <span id="sidebarProgressPercent" class="font-bold text-emerald-600">0%</span>
-                            </div>
-                            <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div id="sidebarProgressBar" class="bg-emerald-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2 pt-2" id="modulesList">
-                            <!-- Rendered by JS -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ADD COURSE MODAL (ADMIN) -->
-    <div id="addCourseModal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl border border-slate-200 dark:border-slate-700">
+    <!-- LOGIN SELECTION MODAL -->
+    <div id="loginModal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-200 dark:border-slate-700">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
-                <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">Tambah Modul PAI & BP Baru</h3>
-                <button onclick="closeAddCourseModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">Login & Pilih Akun Pengguna</h3>
+                <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
-            <form id="addCourseForm" onsubmit="handleCreateCourse(event)" class="space-y-4">
+            <p class="text-xs text-slate-500">Pilih salah satu akun terdaftar di bawah ini untuk mensimulasikan login siswa atau guru:</p>
+
+            <div class="space-y-2 max-h-80 overflow-y-auto pr-1" id="loginAccountsList">
+                <!-- Dynamically Inserted Users -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD ASSIGNMENT MODAL (GURU) -->
+    <div id="addAssignmentModal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
+                <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">Buat Tugas / Jurnal PAI Baru</h3>
+                <button onclick="closeAddAssignmentModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <form id="addAssignmentForm" onsubmit="handleCreateAssignment(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Judul Topik Pembelajaran PAI & BP</label>
-                    <input type="text" id="newCourseTitle" required placeholder="Misal: Menjaga Kelestarian Alam & Etika Lingkungan Hidup" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Judul Tugas / Aktivitas</label>
+                    <input type="text" id="newAssignTitle" required placeholder="Misal: Jurnal Foto Pembiasaan Shalat Jamaah & Tabayyun" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Fase / Jenjang</label>
-                        <select id="newCourseCategory" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                            <option value="fase-e">Fase E (Kelas X SMA/SMK)</option>
-                            <option value="fase-f">Fase F (Kelas XI-XII SMA)</option>
-                            <option value="fase-d">Fase D (Kelas VII-IX SMP)</option>
-                        </select>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Tenggat Waktu (Due Date)</label>
+                        <input type="date" id="newAssignDueDate" required class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Target Karakter</label>
-                        <select id="newCourseLevel" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                            <option value="Berakhlak Mulia">Berakhlak Mulia</option>
-                            <option value="Bernalar Kritis">Bernalar Kritis</option>
-                            <option value="Gotong Royong">Gotong Royong</option>
-                            <option value="Toleran & Inklusif">Toleran & Inklusif</option>
-                        </select>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Skor Maksimal</label>
+                        <input type="number" id="newAssignMaxScore" value="100" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">URL Cover Modul</label>
-                    <input type="url" id="newCourseImage" required placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Capaian Pembelajaran (Naratif Sederhana)</label>
-                    <textarea id="newCourseDesc" rows="3" required placeholder="Jelaskan gambaran umum topik PAI BP ini..." class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Instruksi & Petunjuk Tugas</label>
+                    <textarea id="newAssignInstructions" rows="3" required placeholder="Tuliskan petunjuk pengerjaan tugas dan foto bukti yang harus dilampirkan..." class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
                 </div>
 
                 <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="closeAddCourseModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold rounded-xl text-xs">Batal</button>
-                    <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-xs">Simpan Modul</button>
+                    <button type="button" onclick="closeAddAssignmentModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold rounded-xl text-xs">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-xl text-xs">Terbitkan Tugas</button>
                 </div>
             </form>
         </div>
@@ -525,28 +477,44 @@
                     <input type="text" id="newModuleTitle" required placeholder="Misal: Studi Kasus Etika Digital & Tabayyun" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
                 </div>
 
+    <!-- ADD STUDENT MODAL (ADMIN) -->
+    <div id="addStudentModal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
+                <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">Tambah Siswa Baru</h3>
+                <button onclick="closeAddStudentModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <form id="addStudentForm" onsubmit="handleCreateStudent(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Nama Lengkap Siswa</label>
+                    <input type="text" id="newStudentName" required placeholder="Misal: Ahmad Zaky" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Tipe Aktivitas</label>
-                        <select id="newModuleType" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                            <option value="materi">Materi & Dalil Al-Qur'an/Hadis</option>
-                            <option value="refleksi">Refleksi Sikap / Kuis</option>
-                        </select>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">NISN / ID Siswa</label>
+                        <input type="text" id="newStudentNisn" required placeholder="0051234567" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Estimasi Durasi</label>
-                        <input type="text" id="newModuleDuration" required placeholder="20 Menit" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Kelas & Fase</label>
+                        <select id="newStudentClass" class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="Kelas X (Fase E)">Kelas X (Fase E)</option>
+                            <option value="Kelas XI (Fase F)">Kelas XI (Fase F)</option>
+                            <option value="Kelas XII (Fase F)">Kelas XII (Fase F)</option>
+                            <option value="Kelas VII (Fase D)">Kelas VII (Fase D)</option>
+                        </select>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Isi PAI / Panduan Pembiasaan</label>
-                    <textarea id="newModuleContent" rows="3" required placeholder="Tuliskan uraian materi, ayat Al-Qur'an, atau pertanyaan pemantik..." class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Foto Profil (URL Gambar)</label>
+                    <input type="url" id="newStudentAvatar" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="closeAddModuleModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold rounded-xl text-xs">Batal</button>
-                    <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-xs">Tambahkan Sub-Topik</button>
+                    <button type="button" onclick="closeAddStudentModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold rounded-xl text-xs">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-xs">Simpan Siswa</button>
                 </div>
             </form>
         </div>
@@ -559,694 +527,274 @@
     </div>
 
     <script>
-        // --- DATA STATE (PAI & BUDI PEKERTI - KURIKULUM MERDEKA BSKAP NO. 032/H/KR/2024) ---
-        let currentRole = 'student'; // 'student' or 'admin'
+        // --- DATA STATE PERBAIKAN & TUGAS ---
+        let currentUser = {
+            id: 's1',
+            name: 'Siti Rahma',
+            role: 'student',
+            classFase: 'Kelas X (Fase E)',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'
+        };
 
-        const coursesData = [
+        const teacherUser = {
+            id: 't1',
+            name: 'Candra Eko Prabowo, S.Pd.I',
+            role: 'admin',
+            classFase: 'Guru PAI & Budi Pekerti',
+            avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80'
+        };
+
+        const assignmentsData = [
             {
-                id: 'course-pai-fase-e-1',
-                atpCode: 'ATP.PAI.E.10.1',
-                title: 'Tabayyun di Era Digital & Etika Komunikasi Islam',
-                category: 'fase-e',
-                level: 'Al-Qur\'an Hadis & Akhlak',
-                image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80',
-                description: 'Sesuai CP BSKAP 032/H/KR/2024: Menganalisis ayat Al-Qur\'an tentang tabayyun (QS. Al-Hujurat: 6) dan penerapannya dalam etika bermedia sosial.',
-                enrolled: true,
-                modules: [
-                    {
-                        id: 'm1',
-                        title: 'TP 1: Analisis Q.S. Al-Hujurat/49: 6 tentang Kultur Tabayyun',
-                        type: 'materi',
-                        duration: '20 Menit',
-                        completed: true,
-                        content: `
-                            <p class="font-semibold text-base mb-2">Capaian Pembelajaran BSKAP (Elemen Al-Qur'an Hadis):</p>
-                            <p class="mb-3">Peserta didik mampu menganalisis ayat Al-Qur'an dan Hadis tentang pentingnya verifikasi informasi (tabayyun) serta bahaya hoaks di media sosial.</p>
-                            <div class="p-4 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 dark:border-emerald-800 my-3">
-                                <p class="arabic-text text-xl md:text-2xl text-right leading-loose font-arabic text-emerald-900 dark:text-emerald-200 mb-2">
-                                    يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْٓا اِنْ جَاۤءَكُمْ فَاسِقٌۢ بِنَبَاٍ فَتَبَيَّنُوْٓا اَنْ تُصِيْبُوْا قَوْمًاۢ بِجَهَالَةٍ فَتُصْبِحُوْا عَلٰى مَا فَعَلْتُمْ نٰدِمِيْنَ
-                                </p>
-                                <p class="text-xs text-slate-600 dark:text-slate-300 italic">"Wahai orang-orang yang beriman! Jika seseorang yang fasik datang kepadamu membawa suatu berita, maka telitilah kebenarannya, agar kamu tidak mencelakakan suatu kaum karena kebodohan..." (QS. Al-Hujurat: 6)</p>
-                            </div>
-                            <p><strong>Penerapan TP BSKAP:</strong> Peserta didik membiasakan verifikasi fakta (saring sebelum sharing) demi menjaga persaudaraan (ukhuwah) dan kerukunan berbangsa.</p>
-                        `
-                    },
-                    {
-                        id: 'm2',
-                        title: 'TP 2: Pencegahan Cyberbullying & Ujaran Kebencian',
-                        type: 'materi',
-                        duration: '15 Menit',
-                        completed: true,
-                        content: `
-                            <p class="mb-2">Elemen Akhlak BSKAP menekankan sikap santun dan perlindungan kehormatan sesama manusia (*Hifzh al-’Irdh*).</p>
-                            <ul class="list-disc pl-5 space-y-1">
-                                <li>Menghindari perilaku *cyberbullying* dan ujaran kebencian di jejaring sosial.</li>
-                                <li>Menggunakan bahasa sopan dan mendoakan kebaikan dalam berinteraksi digital.</li>
-                            </ul>
-                        `
-                    },
-                    {
-                        id: 'm3',
-                        title: 'Asesmen Formatif: Refleksi Etika Digital',
-                        type: 'refleksi',
-                        duration: '10 Menit',
-                        completed: false,
-                        quizData: [
-                            {
-                                question: 'Berdasarkan QS. Al-Hujurat: 6 dan CP BSKAP PAI, tindakan terbaik ketika menerima berita kontroversial di grup percakapan adalah...',
-                                options: [
-                                    'Langsung membagikan berita tersebut agar teman-teman waspada.',
-                                    'Mengecek kebenaran berita kepada sumber terpercaya (tabayyun) dan menahannya jika meragukan.',
-                                    'Membalas pesan tersebut dengan emosi dan umpatan.'
-                                ],
-                                correct: 1
-                            },
-                            {
-                                question: 'Karakter Profil Pelajar Pancasila yang paling mencerminkan perilaku tabayyun adalah...',
-                                options: ['Bernalar Kritis & Berakhlak Mulia', 'Mandiri tanpa peduli lingkungan', 'Gaya hidup konsumtif'],
-                                correct: 0
-                            }
-                        ]
-                    }
-                ]
+                id: 'asg-1',
+                title: 'Jurnal Foto Refleksi Tabayyun & Etika Digital',
+                dueDate: '2026-11-10',
+                maxScore: 100,
+                instructions: 'Buatlah rangkuman singkat dan unggah foto bukti penerapan klarifikasi (tabayyun) berita hoaks di grup sekolah/sosmed.'
             },
             {
-                id: 'course-pai-fase-f-1',
-                atpCode: 'ATP.PAI.F.11.2',
-                title: 'Fiqih Muamalah Modern & Ekosistem Ekonomi Syariah Digital',
-                category: 'fase-f',
-                level: 'Fiqih & Akuntabilitas',
-                image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=600&q=80',
-                description: 'Sesuai CP BSKAP Fase F: Menganalisis akad-akad muamalah modern (fintech syariah, asuransi syariah, pinjaman digital) serta menghindari gharar, riba, & maysir.',
-                enrolled: true,
-                modules: [
-                    {
-                        id: 'f1',
-                        title: 'TP 1: Prinsip Bebas Riba, Gharar, & Maysir dalam Fintech Syariah',
-                        type: 'materi',
-                        duration: '25 Menit',
-                        completed: true,
-                        content: 'Memahami penerapan akad Murabahah, Mudharabah, dan Musyarakah pada aplikasi dompet digital dan transaksi keuangan syariah modern.'
-                    },
-                    {
-                        id: 'f2',
-                        title: 'Asesmen Kasus: Menganalisis Risiko Pinjol Ilegal & Riba Digital',
-                        type: 'refleksi',
-                        duration: '15 Menit',
-                        completed: false,
-                        quizData: [
-                            {
-                                question: 'Tindakan yang paling sesuai dengan prinsip Fiqih Muamalah BSKAP Fase F dalam transaksi digital adalah...',
-                                options: [
-                                    'Menggunakan layanan keuangan digital syariah yang terdaftar OJK dan bebas dari ketidakpastian (gharar).',
-                                    'Meminjam uang pada platform pinjol ilegal berbiaya bunga tinggi.',
-                                    'Melakukan spekulasi atau judi online.'
-                                ],
-                                correct: 0
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                id: 'course-pai-fase-d-1',
-                atpCode: 'ATP.PAI.D.7.3',
-                title: 'Pencegahan Perundungan (Anti-Bullying) & Kepedulian Lingkungan',
-                category: 'fase-d',
-                level: 'Akhlak & Eko-Teologi',
-                image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80',
-                description: 'Sesuai CP BSKAP Fase D: Memahami prinsip persaudaraan sesama manusia, pencegahan perundungan di sekolah, dan tanggung jawab melestarikan lingkungan (Eko-Teologi).',
-                enrolled: false,
-                modules: [
-                    {
-                        id: 'd1',
-                        title: 'TP 1: Meneladani Akhlak Karimah & Melawan Perundungan',
-                        type: 'materi',
-                        duration: '20 Menit',
-                        completed: false,
-                        content: 'Islam melarang tindakan merendahkan, mengejek, atau melakukan kekerasan fisik dan verbal kepada sesama teman di sekolah.'
-                    },
-                    {
-                        id: 'd2',
-                        title: 'Asesmen Formatif: Sikap Kepedulian Lingkungan & Anti-Bullying',
-                        type: 'refleksi',
-                        duration: '10 Menit',
-                        completed: false,
-                        quizData: [
-                            {
-                                question: 'Bentuk penerapan akhlak mulia sesuai standar BSKAP Fase D saat melihat teman mengalami perundungan di kelas adalah...',
-                                options: [
-                                    'Membantu dan melaporkan kepada guru PAI / Wali Kelas secara bijak.',
-                                    'Ikut tertawa dan memprovokasi.',
-                                    'Pura-pura tidak melihat dan membiarkannya.'
-                                ],
-                                correct: 0
-                            }
-                        ]
-                    }
-                ]
+                id: 'asg-2',
+                title: 'Laporan Analisis Muamalah & Fintech Syariah',
+                dueDate: '2026-11-15',
+                maxScore: 100,
+                instructions: 'Analisis salah satu aplikasi transaksi syariah digital dan lampirkan bukti tangkapan layar penggunaan fitur syariah.'
             }
         ];
 
-        let activeCourse = null;
-        let activeModule = null;
-        let currentQuizAnswers = {};
-
-        // --- NAVIGATION CONTROLLER ---
-        function switchView(viewName) {
-            document.querySelectorAll('.app-view').forEach(view => view.classList.add('hidden'));
-            
-            const targetView = document.getElementById(`view-${viewName}`);
-            if (targetView) targetView.classList.remove('hidden');
-
-            document.querySelectorAll('.nav-item').forEach(item => {
-                if (item.getAttribute('data-view') === viewName) {
-                    item.classList.add('bg-emerald-50', 'dark:bg-emerald-900/30', 'text-emerald-600', 'dark:text-emerald-400', 'font-semibold');
-                } else {
-                    item.classList.remove('bg-emerald-50', 'dark:bg-emerald-900/30', 'text-emerald-600', 'dark:text-emerald-400', 'font-semibold');
-                }
-            });
-
-            if (viewName === 'dashboard') renderDashboard();
-            if (viewName === 'courses') renderCatalog();
-            if (viewName === 'my-learning') renderMyLearning();
-            if (viewName === 'analytics') initCharts();
-            if (viewName === 'admin-dashboard') renderAdminDashboard();
-
-            closeMobileSidebar();
-        }
-
-        // --- THEME SWITCHER ---
-        function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
-            const isDark = document.documentElement.classList.contains('dark');
-            document.getElementById('themeLabel').textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
-            if (!document.getElementById('view-analytics').classList.contains('hidden')) {
-                initCharts();
+        const submissionsData = [
+            {
+                id: 'sub-1',
+                assignmentId: 'asg-1',
+                studentId: 's1',
+                studentName: 'Siti Rahma',
+                textContent: 'Saya telah menerapkan tabayyun dengan mengecek berita seputar ujian di situs resmi sekolah sebelum menyebarkannya.',
+                imageUrl: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80',
+                submittedAt: '2026-11-01',
+                score: 95,
+                feedback: 'Sangat baik dan kritis dalam menyaring berita!'
             }
+        ];
+
+        // --- LOGIN & USER MANAGEMENT ---
+        function openLoginModal() {
+            const list = document.getElementById('loginAccountsList');
+            const allUsers = [
+                teacherUser,
+                ...studentsData.map(s => ({
+                    id: s.id,
+                    name: s.name,
+                    role: 'student',
+                    classFase: s.classFase,
+                    avatar: s.avatar
+                }))
+            ];
+
+            list.innerHTML = allUsers.map(u => `
+                <div onclick="loginAsUser('${u.id}')" class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 cursor-pointer transition-colors">
+                    <div class="flex items-center gap-3">
+                        <img src="${u.avatar}" class="w-9 h-9 rounded-full object-cover">
+                        <div>
+                            <h5 class="font-semibold text-slate-800 dark:text-slate-100 text-sm">${u.name}</h5>
+                            <span class="text-xs text-slate-400">${u.classFase}</span>
+                        </div>
+                    </div>
+                    <span class="text-[10px] px-2 py-1 ${u.role === 'admin' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'} font-bold rounded-full uppercase">${u.role === 'admin' ? 'Guru PAI' : 'Siswa'}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('loginModal').classList.remove('hidden');
         }
 
-        document.getElementById('themeToggleDesktop').addEventListener('click', toggleTheme);
-        document.getElementById('themeToggleMobile').addEventListener('click', toggleTheme);
-
-        // --- MOBILE SIDEBAR HANDLER ---
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-
-        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-        });
-
-        overlay.addEventListener('click', closeMobileSidebar);
-
-        function closeMobileSidebar() {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
         }
 
-        document.querySelectorAll('.nav-item').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const view = link.getAttribute('data-view');
-                switchView(view);
-            });
-        });
-
-        // --- ROLE TOGGLE FUNCTION ---
-        function toggleUserRole() {
-            if (currentRole === 'student') {
+        function loginAsUser(userId) {
+            if (userId === 't1') {
+                currentUser = teacherUser;
                 currentRole = 'admin';
                 document.getElementById('currentRoleBadge').textContent = 'Guru PAI';
-                document.getElementById('currentRoleBadge').className = 'text-[10px] px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 font-bold rounded-full uppercase';
-                document.getElementById('roleToggleBtn').innerHTML = '<i class="fa-solid fa-repeat"></i> Mode Siswa';
-                document.getElementById('userName').textContent = 'Drs. Ahmad Dahlan, M.Pd.I';
-                document.getElementById('userRoleTitle').textContent = 'Guru PAI & Budi Pekerti';
-                document.getElementById('userAvatar').src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80';
-                showToast('Beralih ke Panel Guru PAI (ATP BSKAP)');
+            } else {
+                const found = studentsData.find(s => s.id === userId);
+                if (found) {
+                    currentUser = {
+                        id: found.id,
+                        name: found.name,
+                        role: 'student',
+                        classFase: found.classFase,
+                        avatar: found.avatar
+                    };
+                    currentRole = 'student';
+                    document.getElementById('currentRoleBadge').textContent = 'Siswa';
+                }
+            }
+
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userRoleTitle').textContent = currentUser.classFase;
+            document.getElementById('userAvatar').src = currentUser.avatar;
+
+            closeLoginModal();
+            showToast(`Berhasil login sebagai ${currentUser.name}`);
+            
+            if (currentRole === 'admin') {
                 switchView('admin-dashboard');
             } else {
-                currentRole = 'student';
-                document.getElementById('currentRoleBadge').textContent = 'Siswa';
-                document.getElementById('currentRoleBadge').className = 'text-[10px] px-2 py-0.5 bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 font-bold rounded-full uppercase';
-                document.getElementById('roleToggleBtn').innerHTML = '<i class="fa-solid fa-repeat"></i> Mode Guru PAI';
-                document.getElementById('userName').textContent = 'Siti Rahma';
-                document.getElementById('userRoleTitle').textContent = 'Siswa SMA - Fase E';
-                document.getElementById('userAvatar').src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80';
-                showToast('Beralih ke Mode Siswa');
                 switchView('dashboard');
             }
         }
 
-        // --- CALCULATE PROGRESS ---
-        function calculateCourseProgress(course) {
-            if (!course.modules || course.modules.length === 0) return 0;
-            const completed = course.modules.filter(m => m.completed).length;
-            return Math.round((completed / course.modules.length) * 100);
-        }
-
-        // --- RENDER DASHBOARD ---
-        function renderDashboard() {
-            const enrolled = coursesData.filter(c => c.enrolled);
-            document.getElementById('statEnrolledCount').textContent = enrolled.length;
-
-            const container = document.getElementById('dashboardActiveCourses');
-            if (enrolled.length === 0) {
-                container.innerHTML = `<p class="col-span-full text-center text-slate-400 py-6">Belum ada modul yang kamu ikuti. Silakan pilih dari katalog modul BSKAP.</p>`;
-                return;
-            }
-
-            container.innerHTML = enrolled.map(c => {
-                const prog = calculateCourseProgress(c);
+        // --- RENDER ASSIGNMENTS & SUBMISSION FORMS ---
+        function renderAssignmentsView() {
+            const container = document.getElementById('assignmentListContainer');
+            
+            container.innerHTML = assignmentsData.map(a => {
+                const mySub = submissionsData.find(s => s.assignmentId === a.id && s.studentId === currentUser.id);
+                
                 return `
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 space-y-4 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="flex items-center gap-3">
-                            <img src="${c.image}" class="w-12 h-12 rounded-xl object-cover">
-                            <div class="overflow-hidden">
-                                <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">${c.category}</span>
-                                <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm truncate">${c.title}</h4>
-                            </div>
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-amber-600 bg-amber-50 dark:bg-amber-950/40 px-2.5 py-1 rounded-md"><i class="fa-regular fa-clock mr-1"></i>Tenggat: ${a.dueDate}</span>
+                            ${mySub 
+                                ? `<span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-1 rounded-md">Nilai: ${mySub.score !== null ? mySub.score : 'Selesai Terkirim'}</span>`
+                                : `<span class="text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-md">Belum Dikirim</span>`
+                            }
                         </div>
-                        <div class="space-y-1">
-                            <div class="flex justify-between text-xs text-slate-500">
-                                <span>Kemajuan Belajar</span>
-                                <span class="font-bold text-emerald-600">${prog}%</span>
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base">${a.title}</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">${a.instructions}</p>
+                        
+                        ${mySub ? `
+                            <div class="p-3 bg-slate-50 dark:bg-slate-700/40 rounded-xl space-y-2 border border-slate-200/60 dark:border-slate-700/60">
+                                <p class="text-xs text-slate-600 dark:text-slate-300"><strong>Jawaban Anda:</strong> ${mySub.textContent}</p>
+                                ${mySub.imageUrl ? `<img src="${mySub.imageUrl}" class="w-32 h-20 object-cover rounded-lg border">` : ''}
+                                ${mySub.feedback ? `<p class="text-xs text-emerald-600 italic"><strong>Umpan Balik Guru:</strong> ${mySub.feedback}</p>` : ''}
                             </div>
-                            <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div class="bg-emerald-600 h-full rounded-full transition-all duration-300" style="width: ${prog}%"></div>
-                            </div>
-                        </div>
-                        <button onclick="openCourseDetail('${c.id}')" class="w-full py-2 bg-emerald-50 dark:bg-emerald-900/30 hover:bg-emerald-600 hover:text-white text-emerald-600 dark:text-emerald-400 font-semibold text-xs rounded-xl transition-colors">Lanjutkan Belajar</button>
+                        ` : `
+                            <button onclick="selectAssignmentForSubmit('${a.id}')" class="py-2 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl transition-colors">
+                                Kerjakan / Kirim Tugas
+                            </button>
+                        `}
                     </div>
                 `;
             }).join('');
         }
 
-        // --- RENDER ADMIN DASHBOARD ---
-        function renderAdminDashboard() {
-            document.getElementById('adminStatTotalCourses').textContent = coursesData.length;
+        function selectAssignmentForSubmit(taskId) {
+            const task = assignmentsData.find(a => a.id === taskId);
+            if (!task) return;
 
-            const tableBody = document.getElementById('adminCourseTableBody');
-            tableBody.innerHTML = coursesData.map(c => `
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
-                    <td class="p-3.5 flex items-center gap-3">
-                        <img src="${c.image}" class="w-10 h-10 rounded-lg object-cover">
-                        <div>
-                            <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded">${c.atpCode || 'ATP.PAI'}</span>
-                            <p class="font-semibold text-slate-800 dark:text-slate-100 line-clamp-1 mt-0.5">${c.title}</p>
-                        </div>
-                    </td>
-                    <td class="p-3.5">
-                        <span class="px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-md text-xs font-semibold uppercase">${c.category}</span>
-                    </td>
-                    <td class="p-3.5 text-xs text-slate-600 dark:text-slate-300 font-medium">${c.level}</td>
-                    <td class="p-3.5 text-xs text-slate-600 dark:text-slate-300">${c.modules.length} Sub-TP</td>
-                    <td class="p-3.5 text-right space-x-2">
-                        <button onclick="openAddModuleModal('${c.id}')" class="px-3 py-1.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 rounded-lg text-xs font-semibold transition-colors">
-                            + Sub-TP
-                        </button>
-                        <button onclick="deleteCourse('${c.id}')" class="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors" title="Hapus Modul">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
+            document.getElementById('submitTaskId').value = task.id;
+            document.getElementById('submitCardTitle').textContent = `Kirim: ${task.title}`;
+            document.getElementById('submitCardSub').textContent = `Tenggat: ${task.dueDate} • Skor Maks: ${task.maxScore}`;
+            document.getElementById('studentSubmitForm').classList.remove('hidden');
         }
 
-        // --- ADMIN MODAL & CRUD ACTIONS ---
-        function openAddCourseModal() {
-            document.getElementById('addCourseModal').classList.remove('hidden');
-        }
-
-        function closeAddCourseModal() {
-            document.getElementById('addCourseModal').classList.add('hidden');
-            document.getElementById('addCourseForm').reset();
-        }
-
-        function handleCreateCourse(e) {
+        function handleStudentSubmitTask(e) {
             e.preventDefault();
-            const title = document.getElementById('newCourseTitle').value;
-            const category = document.getElementById('newCourseCategory').value;
-            const level = document.getElementById('newCourseLevel').value;
-            const image = document.getElementById('newCourseImage').value;
-            const description = document.getElementById('newCourseDesc').value;
+            const taskId = document.getElementById('submitTaskId').value;
+            const textContent = document.getElementById('submitTextContent').value;
+            const imageUrl = document.getElementById('submitImageURL').value;
 
-            const newCourse = {
-                id: 'course-' + Date.now(),
-                atpCode: `ATP.PAI.${category.charAt(5).toUpperCase()}.${Math.floor(Math.random()*10)+1}`,
+            submissionsData.push({
+                id: 'sub-' + Date.now(),
+                assignmentId: taskId,
+                studentId: currentUser.id,
+                studentName: currentUser.name,
+                textContent,
+                imageUrl,
+                submittedAt: new Date().toISOString().split('T')[0],
+                score: null,
+                feedback: null
+            });
+
+            document.getElementById('studentSubmitForm').reset();
+            document.getElementById('studentSubmitForm').classList.add('hidden');
+            showToast('Tugas & Lampiran Foto Berhasil Terkirim!');
+            renderAssignmentsView();
+        }
+
+        // --- GURU / ADMIN ASSIGNMENT CREATION & GRADING ---
+        function openAddAssignmentModal() {
+            document.getElementById('addAssignmentModal').classList.remove('hidden');
+        }
+
+        function closeAddAssignmentModal() {
+            document.getElementById('addAssignmentModal').classList.add('hidden');
+            document.getElementById('addAssignmentForm').reset();
+        }
+
+        function handleCreateAssignment(e) {
+            e.preventDefault();
+            const title = document.getElementById('newAssignTitle').value;
+            const dueDate = document.getElementById('newAssignDueDate').value;
+            const maxScore = document.getElementById('newAssignMaxScore').value;
+            const instructions = document.getElementById('newAssignInstructions').value;
+
+            assignmentsData.unshift({
+                id: 'asg-' + Date.now(),
                 title,
-                category,
-                level,
-                image,
-                description,
-                enrolled: true,
-                modules: []
-            };
+                dueDate,
+                maxScore,
+                instructions
+            });
 
-            coursesData.unshift(newCourse);
-            closeAddCourseModal();
-            showToast('Modul Ajar PAI Berhasil Ditambahkan!');
+            closeAddAssignmentModal();
+            showToast('Tugas Baru Berhasil Diterbitkan!');
             renderAdminDashboard();
         }
 
-        function openAddModuleModal(courseId) {
-            document.getElementById('targetCourseId').value = courseId;
-            document.getElementById('addModuleModal').classList.remove('hidden');
-        }
-
-        function closeAddModuleModal() {
-            document.getElementById('addModuleModal').classList.add('hidden');
-            document.getElementById('addModuleForm').reset();
-        }
-
-        function handleCreateModule(e) {
-            e.preventDefault();
-            const courseId = document.getElementById('targetCourseId').value;
-            const title = document.getElementById('newModuleTitle').value;
-            const type = document.getElementById('newModuleType').value;
-            const duration = document.getElementById('newModuleDuration').value;
-            const content = document.getElementById('newModuleContent').value;
-
-            const course = coursesData.find(c => c.id === courseId);
-            if (course) {
-                course.modules.push({
-                    id: 'm-' + Date.now(),
-                    title,
-                    type,
-                    duration,
-                    completed: false,
-                    content: `<p>${content}</p>`
-                });
-                closeAddModuleModal();
-                showToast('Sub-Topik Baru Berhasil Ditambahkan!');
-                renderAdminDashboard();
-            }
-        }
-
-        function deleteCourse(courseId) {
-            const index = coursesData.findIndex(c => c.id === courseId);
-            if (index !== -1) {
-                coursesData.splice(index, 1);
-                showToast('Modul Ajar Dihapus');
-                renderAdminDashboard();
-            }
-        }
-
-        // --- RENDER CATALOG ---
-        function renderCatalog() {
-            const searchVal = document.getElementById('searchInput').value.toLowerCase();
-            const catVal = document.getElementById('categoryFilter').value;
-
-            const filtered = coursesData.filter(c => {
-                const matchSearch = c.title.toLowerCase().includes(searchVal) || c.description.toLowerCase().includes(searchVal) || (c.atpCode && c.atpCode.toLowerCase().includes(searchVal));
-                const matchCat = catVal === 'all' || c.category === catVal;
-                return matchSearch && matchCat;
-            });
-
-            const grid = document.getElementById('courseCatalogGrid');
-            grid.innerHTML = filtered.map(c => `
-                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all group">
-                    <div>
-                        <div class="relative h-44 overflow-hidden">
-                            <img src="${c.image}" alt="${c.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                            <span class="absolute top-3 left-3 bg-emerald-900/90 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full font-semibold capitalize">${c.category.replace('-', ' ').toUpperCase()}</span>
-                            <span class="absolute top-3 right-3 bg-slate-900/80 text-emerald-300 text-[10px] px-2.5 py-1 rounded-full font-mono">${c.atpCode || 'ATP PAI'}</span>
-                        </div>
-                        <div class="p-5 space-y-2">
-                            <span class="text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider"><i class="fa-solid fa-layer-group"></i> ${c.level}</span>
-                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base leading-snug">${c.title}</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3">${c.description}</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        ${c.enrolled 
-                            ? `<button onclick="openCourseDetail('${c.id}')" class="w-full py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold text-xs rounded-xl hover:bg-emerald-600 hover:text-white transition-colors">Buka Alur Pembelajaran</button>`
-                            : `<button onclick="enrollCourse('${c.id}')" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl shadow-md shadow-emerald-500/20 transition-colors">Ikuti Modul ATP Ini</button>`
-                        }
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        document.getElementById('searchInput').addEventListener('input', renderCatalog);
-        document.getElementById('categoryFilter').addEventListener('change', renderCatalog);
-
-        // --- ENROLL COURSE ---
-        function enrollCourse(courseId) {
-            const course = coursesData.find(c => c.id === courseId);
-            if (course) {
-                course.enrolled = true;
-                showToast(`Berhasil mendaftar di ${course.title}!`);
-                renderCatalog();
-            }
-        }
-
-        // --- RENDER MY LEARNING ---
-        function renderMyLearning() {
-            const enrolledList = coursesData.filter(c => c.enrolled);
-            const grid = document.getElementById('myLearningGrid');
+        function renderAdminGradingTable() {
+            const tableBody = document.getElementById('adminGradingTableBody');
             
-            if (enrolledList.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-8">Kamu belum mengikuti materi PAI BP manapun.</p>`;
+            if (submissionsData.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada siswa yang mengumpulkan tugas.</td></tr>`;
                 return;
             }
 
-            grid.innerHTML = enrolledList.map(c => {
-                const prog = calculateCourseProgress(c);
+            tableBody.innerHTML = submissionsData.map(s => {
+                const task = assignmentsData.find(a => a.id === s.assignmentId);
                 return `
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 space-y-4 shadow-sm">
-                        <img src="${c.image}" class="w-full h-36 rounded-xl object-cover">
-                        <h3 class="font-bold text-slate-800 dark:text-slate-100">${c.title}</h3>
-                        <div class="space-y-1">
-                            <div class="flex justify-between text-xs text-slate-500">
-                                <span>Capaian Sub-Topik</span>
-                                <span>${prog}%</span>
-                            </div>
-                            <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div class="bg-emerald-600 h-full rounded-full" style="width: ${prog}%"></div>
-                            </div>
-                        </div>
-                        <button onclick="openCourseDetail('${c.id}')" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl transition-colors">Lanjutkan Refleksi</button>
-                    </div>
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                        <td class="p-3.5 font-semibold text-slate-800 dark:text-slate-100">${s.studentName}</td>
+                        <td class="p-3.5 text-xs text-slate-600 dark:text-slate-300 font-medium">${task ? task.title : 'Tugas'}</td>
+                        <td class="p-3.5">
+                            ${s.imageUrl ? `<a href="${s.imageUrl}" target="_blank"><img src="${s.imageUrl}" class="w-12 h-10 object-cover rounded border hover:scale-110 transition-transform"></a>` : '<span class="text-xs text-slate-400">Tanpa Foto</span>'}
+                        </td>
+                        <td class="p-3.5 text-xs text-slate-600 dark:text-slate-300 line-clamp-2 max-w-xs">${s.textContent}</td>
+                        <td class="p-3.5">
+                            <span class="px-2.5 py-1 ${s.score !== null ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'} font-bold rounded-md text-xs">
+                                ${s.score !== null ? `Nilai: ${s.score}` : 'Belum Dinilai'}
+                            </span>
+                        </td>
+                        <td class="p-3.5 text-right">
+                            <button onclick="gradeSubmission('${s.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold transition-colors">
+                                Beri Nilai
+                            </button>
+                        </td>
+                    </tr>
                 `;
             }).join('');
         }
 
-        // --- COURSE DETAIL & LESSON SYSTEM ---
-        function openCourseDetail(courseId) {
-            activeCourse = coursesData.find(c => c.id === courseId);
-            if (!activeCourse) return;
+        function gradeSubmission(subId) {
+            const sub = submissionsData.find(s => s.id === subId);
+            if (!sub) return;
 
-            document.getElementById('sidebarCourseTitle').textContent = activeCourse.title;
-            document.getElementById('detailCourseSub').textContent = `Kurikulum Merdeka • ${activeCourse.category.toUpperCase()}`;
-
-            updateCourseProgressUI();
-            renderModulesList();
-            
-            // Select first module by default
-            if (activeCourse.modules.length > 0) {
-                selectModule(activeCourse.modules[0].id);
-            }
-
-            switchView('course-detail');
-        }
-
-        function updateCourseProgressUI() {
-            const prog = calculateCourseProgress(activeCourse);
-            document.getElementById('sidebarProgressPercent').textContent = `${prog}%`;
-            document.getElementById('sidebarProgressBar').style.width = `${prog}%`;
-        }
-
-        function renderModulesList() {
-            const container = document.getElementById('modulesList');
-            container.innerHTML = activeCourse.modules.map((m, index) => {
-                const isActive = activeModule && activeModule.id === m.id;
-                return `
-                    <button onclick="selectModule('${m.id}')" class="w-full text-left p-3 rounded-xl flex items-center justify-between transition-all ${
-                        isActive 
-                            ? 'bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-semibold' 
-                            : 'hover:bg-slate-100 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-300'
-                    }">
-                        <div class="flex items-center gap-3">
-                            <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs ${
-                                m.completed 
-                                    ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400' 
-                                    : 'bg-slate-200 dark:bg-slate-700 text-slate-500'
-                            }">
-                                ${m.completed ? '<i class="fa-solid fa-check"></i>' : index + 1}
-                            </div>
-                            <div>
-                                <p class="text-xs line-clamp-1 font-medium">${m.title}</p>
-                                <span class="text-[10px] text-slate-400 capitalize">${m.type} • ${m.duration}</span>
-                            </div>
-                        </div>
-                    </button>
-                `;
-            }).join('');
-        }
-
-        function selectModule(moduleId) {
-            activeModule = activeCourse.modules.find(m => m.id === moduleId);
-            if (!activeModule) return;
-
-            renderModulesList();
-
-            document.getElementById('detailLessonHeader').textContent = activeModule.title;
-            document.getElementById('currentLessonTitle').textContent = activeModule.title;
-            document.getElementById('lessonTextContent').innerHTML = activeModule.content;
-
-            const quizContainer = document.getElementById('quizContainer');
-            
-            if (activeModule.type === 'refleksi' && activeModule.quizData) {
-                quizContainer.classList.remove('hidden');
-                renderQuiz(activeModule.quizData);
-            } else {
-                quizContainer.classList.add('hidden');
+            const scoreInput = prompt('Masukkan Nilai Siswa (0 - 100):', sub.score || 90);
+            if (scoreInput !== null) {
+                const feedbackInput = prompt('Masukkan Umpan Balik / Catatan Guru:', sub.feedback || 'Bagus sekali!');
+                sub.score = parseInt(scoreInput);
+                sub.feedback = feedbackInput;
+                showToast('Nilai berhasil disimpan!');
+                renderAdminDashboard();
             }
         }
 
-        function markCurrentLessonComplete() {
-            if (activeModule) {
-                activeModule.completed = true;
-                updateCourseProgressUI();
-                renderModulesList();
-                showToast('Aktivitas diselesaikan!');
-            }
-        }
-
-        // --- QUIZ / REFLEKSI ENGINE ---
-        function renderQuiz(quizData) {
-            currentQuizAnswers = {};
-            const quizBody = document.getElementById('quizBody');
-            const quizResult = document.getElementById('quizResult');
-            
-            quizResult.classList.add('hidden');
-            quizBody.classList.remove('hidden');
-
-            quizBody.innerHTML = quizData.map((q, qIndex) => `
-                <div class="space-y-3">
-                    <p class="font-semibold text-slate-800 dark:text-slate-100 text-sm">${qIndex + 1}. ${q.question}</p>
-                    <div class="space-y-2">
-                        ${q.options.map((opt, oIndex) => `
-                            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/40 cursor-pointer text-sm transition-colors">
-                                <input type="radio" name="quiz_q_${qIndex}" value="${oIndex}" onchange="recordAnswer(${qIndex}, ${oIndex})" class="text-emerald-600 focus:ring-emerald-500">
-                                <span>${opt}</span>
-                            </label>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('') + `
-                <button onclick="submitQuiz()" class="mt-4 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-xl transition-colors">
-                    Kirim Refleksi Sikap
-                </button>
-            `;
-        }
-
-        function recordAnswer(qIndex, answerIndex) {
-            currentQuizAnswers[qIndex] = answerIndex;
-        }
-
-        function submitQuiz() {
-            const totalQuestions = activeModule.quizData.length;
-            let correctCount = 0;
-
-            activeModule.quizData.forEach((q, idx) => {
-                if (currentQuizAnswers[idx] === q.correct) {
-                    correctCount++;
-                }
-            });
-
-            const score = Math.round((correctCount / totalQuestions) * 100);
-
-            document.getElementById('quizBody').classList.add('hidden');
-            const resultBox = document.getElementById('quizResult');
-            resultBox.classList.remove('hidden');
-            document.getElementById('quizScoreText').innerHTML = `Pemahaman & Refleksi: <span class="font-bold text-emerald-600 text-lg">${score}%</span> (${correctCount}/${totalQuestions} Sesuai)`;
-
-            if (score >= 60) {
-                activeModule.completed = true;
-                updateCourseProgressUI();
-                renderModulesList();
-                showToast('Barakallah! Refleksi berhasil diselesaikan.');
-            }
-        }
-
-        function resetQuiz() {
-            if (activeModule && activeModule.quizData) {
-                renderQuiz(activeModule.quizData);
-            }
-        }
-
-        // --- TOAST NOTIFICATION ---
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').textContent = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
-
-        // --- CHART JS ANALYTICS ---
-        let weeklyChartInstance = null;
-        let categoryChartInstance = null;
-
-        function initCharts() {
-            if (weeklyChartInstance) weeklyChartInstance.destroy();
-            if (categoryChartInstance) categoryChartInstance.destroy();
-
-            const isDark = document.documentElement.classList.contains('dark');
-            const textColor = isDark ? '#94a3b8' : '#64748b';
-
-            // Weekly Hours Chart
-            const ctx1 = document.getElementById('weeklyChart').getContext('2d');
-            weeklyChartInstance = new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
-                    datasets: [{
-                        label: 'Jam Belajar & Refleksi',
-                        data: [2, 3.5, 2.5, 4, 3, 5, 4],
-                        backgroundColor: '#10b981',
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { ticks: { color: textColor }, grid: { display: false } },
-                        y: { ticks: { color: textColor }, grid: { borderDash: [4] } }
-                    }
-                }
-            });
-
-            // 5 Elemen PAI Distribution Chart
-            const ctx2 = document.getElementById('categoryChart').getContext('2d');
-            categoryChartInstance = new Chart(ctx2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Al-Qur\'an Hadis', 'Aqidah', 'Akhlak', 'Fiqih', 'Sejarah Peradaban'],
-                    datasets: [{
-                        data: [25, 20, 30, 15, 10],
-                        backgroundColor: ['#10b981', '#06b6d4', '#f59e0b', '#8b5cf6', '#ec4899']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { color: textColor } }
-                    }
-                }
-            });
-        }
-
-        // Initialize Default View
-        window.onload = function() {
-            switchView('dashboard');
+        // --- OVERRIDE NAVIGATION SWITCH TO INCLUDE NEW VIEWS ---
+        const originalSwitchView = switchView;
+        switchView = function(viewName) {
+            originalSwitchView(viewName);
+            if (viewName === 'assignments') renderAssignmentsView();
+            if (viewName === 'admin-dashboard') renderAdminGradingTable();
         };
     </script>
 </body>
